@@ -1,0 +1,5 @@
+{
+    "tasks": [
+        { "name": "cwd", "cmd": "cwd" }
+    ]
+}
