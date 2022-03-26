@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -25,8 +24,14 @@ type Command struct {
 func (command *Command) run(cmd string) {
 	var cmdString = strings.Split(cmd, " ")
 	proc := exec.Command(cmdString[0], cmdString[1:]...)
-	proc.Start()
-	fmt.Printf("proc.Stdout: %v\n", proc.Stdout)
+
+	proc.Stdout = os.Stdout
+	proc.Stderr = os.Stderr
+
+	err := proc.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 type CmdFlags struct {
@@ -88,8 +93,6 @@ func main() {
 	var cmdFlags = parse_flags(os.Args...)
 	var config = read_config(cmdFlags.config_path)
 
-	// take the command and execute it
 	cmd := Command{config.find(cmdFlags.cmd)}
 	cmd.run(cmdFlags.cmd)
-	log.Printf(config.Tasks[0].Name)
 }

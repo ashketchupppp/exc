@@ -10,8 +10,8 @@
             "request": "launch",
             "mode": "auto",
             "program": "src/main.go",
-            "cwd": "C:/Users/compu/Documents/git/exc",
-            "args": ["cwd", "-c", "../exc.config.json"]
+            "cwd": "${workspaceRoot}",
+            "args": ["pwd", "-c", "exc.config.json"]
         }
     ]
 }
